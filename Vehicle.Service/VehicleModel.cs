@@ -7,19 +7,19 @@ namespace Vehicle.Service
     using System.Data.Entity.Spatial;
 
     [Table("Model")]
-    public partial class Model
+    public partial class VehicleModel
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [StringLength(20)]
-        public string ModelName { get; set; }
+        public string Name { get; set; }
 
         [StringLength(20)]
-        public string abrv { get; set; }
+        public string Abrv { get; set; }
 
         public int? MakeId { get; set; }
 
-        public virtual Make Make { get; set; }
+        public virtual VehicleMake Make { get; set; }
     }
 }
