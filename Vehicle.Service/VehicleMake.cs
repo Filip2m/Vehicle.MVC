@@ -15,9 +15,9 @@ namespace Vehicle.Service
             Model = new HashSet<VehicleModel>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; }
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
+        
         [StringLength(20)]
         public string Name { get; set; }
 
@@ -27,5 +27,6 @@ namespace Vehicle.Service
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VehicleModel> Model { get; set; }
     }
+    
 
 }

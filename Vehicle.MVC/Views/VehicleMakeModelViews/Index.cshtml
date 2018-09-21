@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Vehicle.Service.VehicleMake>
+﻿@model IEnumerable<Vehicle.MVC.Models.VehicleMakeModelView>
 
 @{
     ViewBag.Title = "Index";
@@ -29,9 +29,9 @@
             @Html.DisplayFor(modelItem => item.Abrv)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
         </td>
     </tr>
 }

@@ -9,8 +9,8 @@ namespace Vehicle.Service
     [Table("Model")]
     public partial class VehicleModel
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
 
         [StringLength(20)]
         public string Name { get; set; }
