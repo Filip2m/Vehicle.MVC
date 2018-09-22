@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IVehicleMake.cs" />
     <Compile Include="IVehicleService.cs" />
     <Compile Include="VehicleMake.cs" />
     <Compile Include="VehicleContext.cs" />

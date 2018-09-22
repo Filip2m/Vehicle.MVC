@@ -7,7 +7,7 @@ namespace Vehicle.Service
     using System.Data.Entity.Spatial;
 
     [Table("Make")]
-    public partial class VehicleMake
+    public partial class VehicleMake : IVehicleMake
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public VehicleMake()

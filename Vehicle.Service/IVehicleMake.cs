@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Vehicle.Service
 {
-   public interface IVehicleService
+   public interface IVehicleMake
     {
-        VehicleMake GetById(Guid id);
-        void Create(VehicleMake make);
+        
+
+        
     }
 }

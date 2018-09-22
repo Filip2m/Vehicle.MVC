@@ -8,27 +8,18 @@ namespace Vehicle.Service
 {
     public class VehicleService : IVehicleService
     {
-        
-        VehicleContext makeDb = new VehicleContext();
+        VehicleContext db = new VehicleContext();
+        public VehicleMake GetById(Guid id)
+        {
+            
+            var make=db.Makes.Find(id);
+            return make;
+        }
+
         public void Create(VehicleMake make)
         {
-             makeDb.Makes.Add(make);
-        }
-            
-        public void Read(VehicleMake make)
-        {
-            var makes = new List<VehicleMake>();
-            makes = makeDb.Makes.ToList();
-        }
-
-        public void Update(VehicleMake make)
-        {
-          
-        }
-
-        public void Delete(VehicleMake make)
-        {
-            makeDb.Makes.Remove(make);
+            db.Makes.Add(make);
+            db.SaveChanges();
         }
     }
 }
