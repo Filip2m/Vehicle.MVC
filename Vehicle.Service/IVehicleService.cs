@@ -10,5 +10,10 @@ namespace Vehicle.Service
     {
         VehicleMake GetById(Guid id);
         void Create(VehicleMake make);
+        void Edit(VehicleMake make);
+        void Delete(Guid id);
+        //IEnumerable<VehicleMake> Search(string searchWord);
+        IEnumerable<VehicleMake> GetAllMakes();
+        IEnumerable<VehicleMake> Filter(int pageNumber, int pageSize, string searchWord, string sortOrder);
     }
 }

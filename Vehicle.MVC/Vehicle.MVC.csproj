@@ -231,6 +231,7 @@
     <Content Include="Views\VehicleMakes\Edit.cshtml" />
     <Content Include="Views\VehicleMakes\Index.cshtml" />
     <Content Include="Views\VehicleMake\Index.cshtml" />
+    <Content Include="Views\VehicleMake\VehicleMake.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

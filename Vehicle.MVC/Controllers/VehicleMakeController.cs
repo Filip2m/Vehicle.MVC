@@ -8,6 +8,7 @@ using Vehicle.MVC.Models;
 using Vehicle.Service;
 using AutoMapper;
 using RepositoryImplementation;
+using PagedList;
 
 namespace Vehicle.MVC.Controllers
 {
@@ -16,26 +17,28 @@ namespace Vehicle.MVC.Controllers
         
         private readonly IMapper _mapper;
        // private readonly SqlRepository<VehicleMake> _MakeRepository;
-
+       public VehicleMakeController() { }
         public VehicleMakeController(/*SqlRepository<VehicleMake> MakeReposirory,*/IMapper mapper)
         {
             _mapper = mapper;
             //_MakeRepository = MakeReposirory;
 
         }
-        public VehicleMake make = new VehicleMake();
+        //public VehicleMake make = new VehicleMake();
         public IVehicleService service = new VehicleService();
 
         
-        public ActionResult Index(VehicleMakeModelView makeViewModel)
+        public ActionResult Index(string searchWord, string sortOrder, int pageNumber=1, int pageSize=5 )
         {
+
             //var makes = new List<VehicleMake>();
             //var makePagedList = Mapper.Map<List<VehicleMake>,List<VehicleMakeModelView>>(makes);
             //return View(makePagedList);
 
-            
-            var makes=_mapper.Map<VehicleMakeModelView>(make);
-            var makesList = new List<VehicleMakeModelView>(makes);
+
+            var makes = _mapper.Map<IEnumerable<VehicleMakeModelView>>(service.Filter(pageNumber, pageSize, searchWord, sortOrder)).ToPagedList(pageNumber, pageSize);
+
+            var makesList = new StaticPagedList<VehicleMakeModelView>(makes, makes.GetMetaData());
             
 
             return View(makesList);
@@ -68,6 +71,15 @@ namespace Vehicle.MVC.Controllers
             }
 
             return View(_mapper.Map<VehicleMakeModelView>(make));
+        }
+        public ActionResult Delete(Guid id)
+        {
+            if(id==null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            service.Delete(id);
+            return RedirectToAction("index");
         }
     }
 }
