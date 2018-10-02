@@ -173,8 +173,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="InterfaceImplementation\IRepository.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Models\VehicleMakeModelView.cs" />
     <Compile Include="Models\VehicleModelModelView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

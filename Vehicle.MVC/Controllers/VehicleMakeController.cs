@@ -7,7 +7,6 @@ using System.Web.Mvc;
 using Vehicle.MVC.Models;
 using Vehicle.Service;
 using AutoMapper;
-using RepositoryImplementation;
 using PagedList;
 
 namespace Vehicle.MVC.Controllers
@@ -16,24 +15,20 @@ namespace Vehicle.MVC.Controllers
     {
         
         private readonly IMapper _mapper;
-       // private readonly SqlRepository<VehicleMake> _MakeRepository;
+       
        public VehicleMakeController() { }
-        public VehicleMakeController(/*SqlRepository<VehicleMake> MakeReposirory,*/IMapper mapper)
+        public VehicleMakeController(IMapper mapper)
         {
             _mapper = mapper;
-            //_MakeRepository = MakeReposirory;
+            
 
         }
-        //public VehicleMake make = new VehicleMake();
+
         public IVehicleService service = new VehicleService();
 
         
         public ActionResult Index(string searchWord, string sortOrder, int pageNumber=1, int pageSize=5 )
         {
-
-            //var makes = new List<VehicleMake>();
-            //var makePagedList = Mapper.Map<List<VehicleMake>,List<VehicleMakeModelView>>(makes);
-            //return View(makePagedList);
 
 
             var makes = _mapper.Map<IEnumerable<VehicleMakeModelView>>(service.Filter(pageNumber, pageSize, searchWord, sortOrder)).ToPagedList(pageNumber, pageSize);

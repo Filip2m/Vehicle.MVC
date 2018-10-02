@@ -9,7 +9,7 @@ namespace Vehicle.Service
     public partial class VehicleContext : DbContext
     {
         public VehicleContext()
-            : base("name=MakeModel")
+            : base("name=MakeModels")
         {
             
         }

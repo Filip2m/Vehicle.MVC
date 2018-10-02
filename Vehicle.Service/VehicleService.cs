@@ -50,7 +50,7 @@ namespace Vehicle.Service
                 makes = makes.Where(m => m.Name.Contains(searchWord) || m.Abrv.Contains(searchWord));
             }
 
-            switch(sortOrder)
+            switch (sortOrder)
             {
                 case "name_desc":
                     makes = makes.OrderByDescending(m => m.Name);
