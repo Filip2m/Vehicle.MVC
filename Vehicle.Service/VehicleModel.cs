@@ -10,7 +10,7 @@ namespace Vehicle.Service
     public partial class VehicleModel
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         [StringLength(20)]
         public string Name { get; set; }

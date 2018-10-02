@@ -30,19 +30,20 @@ namespace Vehicle.MVC.Controllers
         public ActionResult Index(string searchWord, string sortOrder, int pageNumber=1, int pageSize=5 )
         {
 
+            var proba = service.Filter(pageNumber, pageSize, searchWord, sortOrder);
+            var makes = _mapper.Map<PagedList<VehicleMakeModelView>>(proba);
+            //makes.ToPagedList(pageNumber, pageSize);
 
-            var makes = _mapper.Map<IEnumerable<VehicleMakeModelView>>(service.Filter(pageNumber, pageSize, searchWord, sortOrder)).ToPagedList(pageNumber, pageSize);
-
-            var makesList = new StaticPagedList<VehicleMakeModelView>(makes, makes.GetMetaData());
+            //var makesList = new StaticPagedList<VehicleMakeModelView>(makes, makes.GetMetaData());
             
 
-            return View(makesList);
+            return View(makes);
         }
 
         [HttpPost]
         public ActionResult Create([Bind(Include ="Id, Name, Abrv")] VehicleMakeModelView make)
         {
-            make.Id = Guid.NewGuid();
+            //make.Id = Guid.NewGuid();
             
             if(ModelState.IsValid)
             {
@@ -53,7 +54,7 @@ namespace Vehicle.MVC.Controllers
            
         }
 
-        public ActionResult Details(Guid id)
+        public ActionResult Details(int id)
         {
             if(id==null)//provjerava je li predan id, ako nije => bad request
             {
@@ -67,7 +68,7 @@ namespace Vehicle.MVC.Controllers
 
             return View(_mapper.Map<VehicleMakeModelView>(make));
         }
-        public ActionResult Delete(Guid id)
+        public ActionResult Delete(int id)
         {
             if(id==null)
             {

@@ -9,7 +9,7 @@ namespace Vehicle.Service
     public class VehicleService : IVehicleService
     {
         VehicleContext db = new VehicleContext();
-        public VehicleMake GetById(Guid id)
+        public VehicleMake GetById(int id)
         {
             
             var make=db.Makes.Find(id);
@@ -25,7 +25,7 @@ namespace Vehicle.Service
         {
             db.Entry(make).State = System.Data.Entity.EntityState.Modified;
         }
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             var make = db.Makes.Find(id);
             db.Makes.Remove(make);
@@ -41,6 +41,7 @@ namespace Vehicle.Service
 
         
         public IEnumerable<VehicleMake> Filter(int pageNumber, int pageSize, string searchWord, string sortOrder)
+        
         {
 
             var makes = from m in db.Makes select m;
@@ -59,8 +60,9 @@ namespace Vehicle.Service
                     makes = makes.OrderBy(m => m.Name);
                     break;
             }
-            IEnumerable<VehicleMake> makesList = makes;
-            return makesList;
+            //IEnumerable<VehicleMake> makesList = makes;
+            //return makesList;
+            return makes.ToPagedList(pageNumber,pageSize);
         }
         //public IEnumerable<VehicleMake> Search(string searchWord)
         //{

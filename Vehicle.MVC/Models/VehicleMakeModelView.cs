@@ -12,7 +12,7 @@ namespace Vehicle.MVC.Models
 
         }
 
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Abrv { get; set; }
         public ICollection<VehicleModelModelView> VehicleMakeModelViewObj { get; set; }
