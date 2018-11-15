@@ -5,15 +5,19 @@ using System.Web;
 using Vehicle.Service;
 using Vehicle.MVC.Models;
 
+
+
 namespace Vehicle.MVC.AutomapperProfiles
 {
     public class VehicleProfile : AutoMapper.Profile
     {
         public VehicleProfile()
         {
-            CreateMap<VehicleMake, VehicleMakeModelView>().ReverseMap();
+
+            CreateMap<VehicleMake, VehicleMakeModelView>().ReverseMap().ForMember(dest => dest.Model, opt => opt.Condition(src => (src.VehicleMakeModelViewObj != null)));
             CreateMap<VehicleModel, VehicleModelModelView>().ReverseMap();
         }
+
 
     }
 }

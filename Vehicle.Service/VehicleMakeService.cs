@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using PagedList;
 namespace Vehicle.Service
 {
-    public class VehicleService : IVehicleService
+    public class VehicleMakeService : IVehicleMakeService
     {
         VehicleContext db = new VehicleContext();
         public VehicleMake GetById(int id)
@@ -16,7 +16,7 @@ namespace Vehicle.Service
             return make;
         }
 
-        public void Create(VehicleMake make)
+        public void CreateVehicleMake(VehicleMake make)
         {
             db.Makes.Add(make);
             db.SaveChanges();
@@ -31,25 +31,19 @@ namespace Vehicle.Service
             db.Makes.Remove(make);
             db.SaveChanges();
         }
-        public IEnumerable<VehicleMake> GetAllMakes()
+
+        
+        public IEnumerable<VehicleMake> Filter(int pageNumber, int pageSize, /*string searchWord,*/ string sortOrder)
+        
         {
-            var make= from s in db.Makes select s;
-            IEnumerable<VehicleMake> makes = make.ToList();
-            return makes;
             
-        }
-
-        
-        public IEnumerable<VehicleMake> Filter(int pageNumber, int pageSize, string searchWord, string sortOrder)
-        
-        {
-
+            
             var makes = from m in db.Makes select m;
 
-            if(!string.IsNullOrEmpty(searchWord))
-            {
-                makes = makes.Where(m => m.Name.Contains(searchWord) || m.Abrv.Contains(searchWord));
-            }
+            //if(!string.IsNullOrEmpty(searchWord))
+            //{
+            //    makes = makes.Where(m => m.Name.Contains(searchWord) || m.Abrv.Contains(searchWord));
+            //}
 
             switch (sortOrder)
             {

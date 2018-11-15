@@ -8,34 +8,44 @@ using Vehicle.MVC.Models;
 using Vehicle.Service;
 using AutoMapper;
 using PagedList;
+using Microsoft.Extensions.DependencyInjection;
+using Vehicle.MVC.AutomapperConfiguration;
+
 
 namespace Vehicle.MVC.Controllers
 {
     public class VehicleMakeController : Controller
     {
         
-        private readonly IMapper _mapper;
+       // private IMapper _mapper { get; set; }
+
        
-       public VehicleMakeController() { }
-        public VehicleMakeController(IMapper mapper)
-        {
-            _mapper = mapper;
-            
 
-        }
+        public VehicleMakeController() { }
+        //public VehicleMakeController(IMapper mapper)
+        //{
+        //    _mapper = mapper;
 
-        public IVehicleService service = new VehicleService();
+
+        //}
 
         
-        public ActionResult Index(string searchWord, string sortOrder, int pageNumber=1, int pageSize=5 )
-        {
+        IVehicleMakeService service = new VehicleMakeService();
 
-            var proba = service.Filter(pageNumber, pageSize, searchWord, sortOrder);
-            var makes = _mapper.Map<PagedList<VehicleMakeModelView>>(proba);
+       
+        public ActionResult Index(/*string searchWord,*/ string sortOrder = "name_desc", int pageNumber=1, int pageSize=5 )
+        {
+            var cfg = new MappingProfile().InitializeAutoMapper();
+            var iMapper = cfg.CreateMapper();
+            var proba = service.Filter(pageNumber, pageSize, /*searchWord,*/ sortOrder).ToPagedList(1,5);
+
+            var makes = iMapper.Map<IEnumerable<VehicleMake>, IEnumerable<VehicleMakeModelView>>(proba);
+           //var makes = _mapper.Map<IEnumerable<VehicleMakeModelView>>(proba);
+            
             //makes.ToPagedList(pageNumber, pageSize);
 
             //var makesList = new StaticPagedList<VehicleMakeModelView>(makes, makes.GetMetaData());
-            
+
 
             return View(makes);
         }
@@ -47,7 +57,7 @@ namespace Vehicle.MVC.Controllers
             
             if(ModelState.IsValid)
             {
-                service.Create(Mapper.Map<VehicleMake>(make));
+                service.CreateVehicleMake(Mapper.Map<VehicleMake>(make));
                 return RedirectToAction("Index");
             }
             return View();
@@ -56,17 +66,19 @@ namespace Vehicle.MVC.Controllers
 
         public ActionResult Details(int id)
         {
-            if(id==null)//provjerava je li predan id, ako nije => bad request
+            var cfg = new MappingProfile().InitializeAutoMapper();
+            var iMapper = cfg.CreateMapper();
+            if (id == null)//provjerava je li predan id, ako nije => bad request
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IVehicleMake make = service.GetById(id);
+            VehicleMake make = service.GetById(id);
             if (make==null)//ako nije pronadena marka pod predanim id-em vraca not found
             {
                 return HttpNotFound();
             }
 
-            return View(_mapper.Map<VehicleMakeModelView>(make));
+            return View(iMapper.Map<VehicleMakeModelView>(make));//_mapper changed to iMapper=>if not working
         }
         public ActionResult Delete(int id)
         {

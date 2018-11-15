@@ -55,13 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IVehicleMake.cs" />
-    <Compile Include="IVehicleService.cs" />
+    <Compile Include="IVehicleMakeService.cs" />
     <Compile Include="VehicleMake.cs" />
     <Compile Include="VehicleContext.cs" />
     <Compile Include="VehicleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VehicleService.cs" />
+    <Compile Include="VehicleMakeService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
