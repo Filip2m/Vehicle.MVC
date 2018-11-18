@@ -6,10 +6,12 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Vehicle.MVC.AutomapperConfiguration;
-
-
-using Vehicle.MVC.AutomapperProfiles;
+using AutoMapper;
+using Vehicle.Service;
+using Vehicle.MVC.Models;
+//using Vehicle.MVC.AutomapperProfiles;
 using Microsoft.Extensions.DependencyInjection;
+
 
 
 namespace Vehicle.MVC
@@ -22,12 +24,12 @@ namespace Vehicle.MVC
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            //AutomapperConfiguration.RegisterMaps();
-            //AutomapperConfiguration.AutomapperConfiguration.RegisterMaps();
-            
-           //var a= new MappingProfile().InitializeAutoMapper();
-        
-        }
-        
+            MappingProfile.InitializeAutomapper();
+          
+
+
+
+            }
+
     }
 }
